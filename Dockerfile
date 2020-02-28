@@ -9,7 +9,10 @@ RUN         set -x \
             && apt-get install -yq --no-install-recommends squid3 \
             && apt-get purge -y --auto-remove
 
-ADD         entrypoint.sh ./
+ADD         entrypoint.sh /root/entrypoint.sh
+
+VOLUME      /etc/squid/
 
 EXPOSE      3128
-ENTRYPOINT  ["./entrypoint.sh"]
+
+CMD  ["/bin/bash /root/entrypoint.sh"]
