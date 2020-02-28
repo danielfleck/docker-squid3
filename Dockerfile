@@ -1,4 +1,4 @@
-FROM        ubuntu:16.04
+FROM        debian:jessie
 
 LABEL       MAINTAINER "Daniel Rodrigo Fleck <danielflck@gmail.com>"
 
@@ -9,10 +9,16 @@ RUN         set -x \
             && apt-get install -yq --no-install-recommends squid3 \
             && apt-get purge -y --auto-remove
 
-ADD         entrypoint.sh /root/entrypoint.sh
+RUN         chmod  +rwx /proc/self/fd/1
 
-VOLUME      /etc/squid/
+COPY        ./squid.conf /etc/squid3/squid.conf
+
+ADD         ./entrypoint.sh /entrypoint.sh 
+
+VOLUME      /etc/squid3/
+
+ENTRYPOINT  ["/bin/bash", "-c", "/entrypoint.sh"]
+
+CMD         ["squid3"]
 
 EXPOSE      3128
-
-CMD  ["/bin/bash /root/entrypoint.sh"]

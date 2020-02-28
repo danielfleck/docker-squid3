@@ -5,8 +5,6 @@ SQUID_LOG=/var/log/squid3
 SQUID_CACHE=/var/spool/squid3
 SQUID_USER=proxy
 
-mkdir -p ${SQUID_LOG}
-chmod -R 755 ${SQUID_LOG}
 chown -R ${SQUID_USER}:${SQUID_USER} ${SQUID_LOG}
 
 mkdir -p ${SQUID_CACHE}
@@ -18,4 +16,5 @@ if [[ ! -d ${SQUID_CACHE}/00 ]]; then
 fi
 
 echo "Starting squid3..."
+exec tail -vn 0 -F /var/log/squid3/{cache,access}.log &
 exec squid3 -NYCd 1
