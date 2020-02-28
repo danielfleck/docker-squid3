@@ -1,5 +1,6 @@
-FROM        debian:jessie
-MAINTAINER  Kotaimen <kotaimen.c@gmail.com>
+FROM        ubuntu:16.04
+
+LABEL       MAINTAINER "Daniel Rodrigo Fleck <danielflck@gmail.com>"
 
 ENV         DEBIAN_FRONTEND noninteractive
 
